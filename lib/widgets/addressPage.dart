@@ -1,21 +1,18 @@
-import 'dart:async';
-import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry/models/Service.dart';
+import 'package:laundry/widgets/partials/addressForm.dart';
 import 'package:provider/provider.dart';
 import 'package:laundry/store/serviceState.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laundry/widgets/partials/headerImage.dart';
-import 'package:laundry/widgets/partials/requestCard.dart';
 
 
-class PickupRequest extends StatefulWidget {
+class AddressPage extends StatefulWidget {
   @override
-  _PickupRequest createState() => _PickupRequest();
+  _AddressPage createState() => _AddressPage();
 }
 
-class _PickupRequest extends State<PickupRequest> {
-  bool _isLoading = false;
+class _AddressPage extends State<AddressPage> {
   dynamic serviceState;
 
   @override
@@ -60,26 +57,9 @@ class _PickupRequest extends State<PickupRequest> {
   Widget build(BuildContext context) {
     serviceState = Provider.of<ServiceState>(context);
 
-    final nextButton = Material(
-        elevation: 5.0,
-        borderRadius: BorderRadius.circular(30.0),
-        color: Colors.blueAccent,
-        child: MaterialButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed('/addressPage');;
-          },
-          minWidth: 150.0,
-          padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          child: Text("Next",
-              textAlign: TextAlign.center,
-              style:TextStyle(fontFamily: 'Montserrat', fontSize: 15.0, color: Colors.white)
-          ),
-        ),
-      );
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pickup Request"),
+        title: Text("Pickup Form"),
       ),
       body: Column(
           children: <Widget>[
@@ -88,7 +68,7 @@ class _PickupRequest extends State<PickupRequest> {
               child: Stack(
                 children: <Widget>[
                   new Container(
-                    height: 160,
+                    height: 120,
                     color: Colors.blue,
                   ),
 
@@ -99,8 +79,8 @@ class _PickupRequest extends State<PickupRequest> {
                     right: ((MediaQuery.of(context).size.width / 2) - 50 - 100) / 2,
                     child: Container(
                       width: 100,
-                      height: 150,
-                      padding: EdgeInsets.symmetric(vertical: 40),
+                      height: 110,
+                      padding: EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         color: Colors.white38,
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(50))
@@ -127,8 +107,8 @@ class _PickupRequest extends State<PickupRequest> {
                     left: ((MediaQuery.of(context).size.width / 2) - 50 - 80) / 2,
                     child: Container(
                       width: 80,
-                      height: 150,
-                      padding: EdgeInsets.symmetric(vertical: 40),
+                      height: 100,
+                      padding: EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         color: Colors.white38,
                         borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))
@@ -148,7 +128,7 @@ class _PickupRequest extends State<PickupRequest> {
                   ),
 
                   Positioned(
-                    top: 20.0,
+                    top: 10.0,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: Center(
@@ -162,25 +142,16 @@ class _PickupRequest extends State<PickupRequest> {
 
             Container(padding: EdgeInsets.only(bottom: 10),
               height: MediaQuery.of(context).size.height - 320,
-              child: ListView.builder(
-                itemCount: serviceState.getServices.values.toList().length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  return RequestCard(
-                    imageUrl: serviceState.getServices.values.toList()[index].image,
-                    price: serviceState.getServices.values.toList()[index].price,
-                    slug: serviceState.getServices.values.toList()[index].slug,
-                    quantity: serviceState.getServices.values.toList()[index].quantity.toString(),
-                    increment: increment(serviceState.getServices.values.toList()[index].key),
-                    decrement: decrement(serviceState.getServices.values.toList()[index].key),
-                  );
-                }
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    AddressForm(),
+                  ],
+                ),
               ),
             ),
-
-            nextButton
           ],
         ),
       );
   }
-
 }
