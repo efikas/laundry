@@ -5,7 +5,7 @@ class User {
   // It's automatically generated & unique for every stored Fruit.
   int id;
 
-  final String username;
+  final String email;
   final String uid;
   final String fullname;
   final String phone;
@@ -16,7 +16,7 @@ class User {
   // final String last_question_id;
 
   User({
-    @required this.username,
+    @required this.email,
     @required this.uid,
     @required this.fullname,
     @required this.phone,
@@ -29,7 +29,7 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
-      'username': username,
+      'email': email,
       'uid': uid,
       'fullname': fullname,
       'phone': phone,
@@ -43,7 +43,7 @@ class User {
 
   static User fromMap(Map<String, dynamic> map) {
     return User(
-      username: map['username'],
+      email: map['email'],
       uid: map['uid'],
       fullname: map['fullname'],
       phone: map['phone'],

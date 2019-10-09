@@ -1,5 +1,9 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:laundry/database/AuthDb.dart';
+import 'package:laundry/database/UserDb.dart';
+import 'package:laundry/models/Auth.dart';
+import 'package:laundry/models/User.dart';
 import 'package:laundry/services/datas.dart';
 
 class Services  {
@@ -11,6 +15,8 @@ class Services  {
       receiveTimeout: 5000,
     );
     Dio dio = null;
+    UserDb _userDb;
+    AuthDb _authDb;
     
     Services() {
       dio = new Dio(options);
@@ -28,14 +34,14 @@ class Services  {
         Map<String, dynamic> responseJson = json.decode(response.toString());
 
         if(responseJson.containsKey("uid")){
-          // await  _authDb.insert(
-          //   Auth(isAuthenticated: true, uid: responseJson["uid"], token: responseJson["remember_token"])
-          // );
+          await  _authDb.insert(
+            Auth(isAuthenticated: true, uid: responseJson["uid"], token: responseJson["remember_token"])
+          );
 
-          // //save user information to database and update store
-          // await _userDb.insert(
-          //   User.fromMap(responseJson)
-          // );
+          //save user information to database and update store
+          await _userDb.insert(
+            User.fromMap(responseJson)
+          );
 
         }
 
