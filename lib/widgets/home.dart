@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/widgets/pickups.dart';
 import 'package:laundry/widgets/profile.dart';
 import 'package:laundry/widgets/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
  @override
@@ -14,9 +16,10 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     Services(switchPage: (){},),
     Profile(),
+    Pickups(),
   ];
 
-  final List<String> _title = ["Services","Profile"];
+  final List<String> _title = ["Services", "Profile", "Pickup History"];
 
  @override
  Widget build(BuildContext context) {
@@ -36,6 +39,10 @@ class _HomeState extends State<Home> {
          BottomNavigationBarItem(
            icon: Icon(Icons.person),
            title: Text('Profile')
+         ),
+         BottomNavigationBarItem(
+           icon: Icon(FontAwesomeIcons.truckPickup),
+           title: Text('Requests')
          )
        ],
      ),

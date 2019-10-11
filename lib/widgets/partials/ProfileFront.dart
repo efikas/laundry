@@ -6,6 +6,7 @@ import 'package:laundry/store/userState.dart';
 class ProfileFront extends StatelessWidget {
   List<Widget> _profileOutline = [];
   Map userInfo = {
+    'email': Icons.mail,
     'fullname': Icons.person,
     'phone': Icons.phone,
     'address': Icons.home,
@@ -14,9 +15,6 @@ class ProfileFront extends StatelessWidget {
   String normalizeInfo (dynamic state, String key) => state[key];
 
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class ProfileFront extends StatelessWidget {
       children: <Widget>[
         Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height - 450,
+          // height: MediaQuery.of(context).size.height - 450,
           child: Card(
               elevation: 10,
               margin: EdgeInsets.all(0.0),

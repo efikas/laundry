@@ -1,7 +1,6 @@
-import 'dart:async';
-import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:laundry/widgets/pickup_request.dart';
 import 'package:laundry/widgets/partials/headerImage.dart';
 import 'package:laundry/widgets/partials/servicesCard.dart';
 
@@ -59,7 +58,7 @@ class _CustomLayoutExampleState extends State<Services> {
                   top: 175.0,
                   // bottom: 50,
                   child: new Container(
-                    height: 180,
+                    height: 150,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,13 +77,43 @@ class _CustomLayoutExampleState extends State<Services> {
             height: 400.0,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 50,),
+                SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ServicesCard(imageUrl: "assets/images/drying_clothes.jpg", slug: "Drying Clothes"),
                     ServicesCard(imageUrl: "assets/images/dry_clean.jpeg", slug: "Dry Clean"),
                   ],
+                ),
+                SizedBox(height: 40.0,),
+                Material(
+                  elevation: 5.0,
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: Colors.blue,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) => PickupRequest())
+                      );
+                    },
+                    minWidth: 200.0,
+                    padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 200,
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 20.0,),
+                          Icon(FontAwesomeIcons.bus, color: Colors.white54,),
+                          SizedBox(width: 10.0,),
+                          Text("Pickup Request",
+                              textAlign: TextAlign.center,
+                              style:TextStyle(fontFamily: 'Montserrat', fontSize: 15.0, color: Colors.white)
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

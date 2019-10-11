@@ -4,14 +4,14 @@ class Service {
   // Id will be gotten from the database.
   // It's automatically generated & unique for every stored Fruit.
   int id;
-  final String key;
+  final String name;
   final int quantity;
-  final String price;
+  final int price;
   final String slug;
   final String image;
 
   Service({
-    @required this.key,
+    @required this.name,
     @required this.quantity,
     @required this.price,
     @required this.slug,
@@ -20,7 +20,7 @@ class Service {
 
   Map<String, dynamic> toMap() {
     return {
-      'key': key,
+      'name': name,
       'quantity': quantity,
       'price': price,
       'slug': slug,
@@ -30,7 +30,7 @@ class Service {
 
   static Service fromMap(Map<String, dynamic> map) {
     return Service(
-      key: map['key'],
+      name: map['name'],
       quantity: map['quantity'],
       price: map['price'],
       slug: map['slug'],

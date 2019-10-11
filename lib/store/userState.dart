@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:laundry/models/User.dart';
+import 'package:laundry/models/UserModel.dart';
 import 'package:laundry/services/services.dart';
 
 class UserState extends ChangeNotifier  {

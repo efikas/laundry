@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
-import 'package:laundry/models/User.dart';
+import 'package:laundry/models/UserModel.dart';
 import 'package:laundry/store/userState.dart';
 import 'package:laundry/widgets/registrationSuccess.dart';
 import 'package:provider/provider.dart';
@@ -110,12 +110,11 @@ class _EditProfile extends State<EditProfile> {
         style: myStyle,
         cursorColor: Colors.white,
         keyboardType: TextInputType.text,
-        initialValue: _user.username,
+        initialValue: _user.email,
         enabled: false,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            // hintText: "Username",
-            labelText: 'Username',
+            labelText: 'Email',
             labelStyle: TextStyle(color: Colors.white),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4.0),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RequestCard extends StatelessWidget {
-  String imageUrl, price, slug, quantity;
+  String imageUrl, slug, quantity;
+  int price;
   Function increment, decrement;
   RequestCard({
       Key key,
@@ -36,53 +37,62 @@ class RequestCard extends StatelessWidget {
                 children: <Widget>[
                   Text(slug, style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontSize: 12.0
                   ),),
                   SizedBox(height: 20),
-                  Text("#$price/piece", style: TextStyle(
-                    color: Colors.black38
-                  ),),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 120,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("₦${price.toString()}/piece", style: TextStyle(
+                          color: Colors.black38
+                        ),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            ClipRect(
+                              child: Material(
+                                color: Colors.blueAccent, // button color
+                                child: InkWell(
+                                  splashColor: Colors.white38, // inkwell color
+                                  child: SizedBox(width: 30, height: 30, child: Icon(Icons.remove, color: Colors.white,)),
+                                  onTap: (){ decrement(); },
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent)
+                              ),
+                              child: Center(child: Text(quantity),),
+                            ),
+                            SizedBox(width: 10,),
+                            ClipRect(
+                              child: Material(
+                                color: Colors.blueAccent, // button color
+                                child: InkWell(
+                                  splashColor: Colors.white38, // inkwell color
+                                  child: SizedBox(width: 30, height: 30, child: Icon(Icons.add, color: Colors.white,)),
+                                  onTap: (){
+                                    increment();
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              ClipRect(
-                child: Material(
-                  color: Colors.blueAccent, // button color
-                  child: InkWell(
-                    splashColor: Colors.white38, // inkwell color
-                    child: SizedBox(width: 30, height: 30, child: Icon(Icons.remove, color: Colors.white,)),
-                    onTap: (){ decrement(); },
-                  ),
-                ),
-              ),
-              SizedBox(width: 10,),
-              Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blueAccent)
-                ),
-                child: Center(child: Text(quantity),),
-              ),
-              SizedBox(width: 10,),
-              ClipRect(
-                child: Material(
-                  color: Colors.blueAccent, // button color
-                  child: InkWell(
-                    splashColor: Colors.white38, // inkwell color
-                    child: SizedBox(width: 30, height: 30, child: Icon(Icons.add, color: Colors.white,)),
-                    onTap: (){
-                      increment();
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(width: 20,),
-            ],
-          )
         ],
       ),
     );

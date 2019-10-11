@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         // home: PaymentPage(),
         // home: MakePaymentCard(),
         // home: Intro(),
-        home: Register(),
+        home: Home(),
       ),
     );
   }

@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:laundry/database/AuthDb.dart';
 import 'package:laundry/database/UserDb.dart';
-import 'package:laundry/models/Auth.dart';
-import 'package:laundry/models/User.dart';
+import 'package:laundry/models/UserModel.dart';
 import 'package:laundry/services/datas.dart';
 
 class Services  {
     BaseOptions options = new BaseOptions(
-      baseUrl: "http://0.0.0.0:8080/mobile/",
-      // baseUrl: "https://laundry.app/mobile/",
+      // baseUrl: "http://0.0.0.0:8080/mobile/",
+      baseUrl: "http://laundry.app/mobile/",
       headers: requestHeaders,
       connectTimeout: 5000,
       receiveTimeout: 5000,
@@ -20,6 +19,8 @@ class Services  {
     
     Services() {
       dio = new Dio(options);
+      _userDb = new UserDb();
+      _authDb = new AuthDb();
     }
 
     Future authenticate(Map<String, String> userInfo) async {
@@ -34,9 +35,7 @@ class Services  {
         Map<String, dynamic> responseJson = json.decode(response.toString());
 
         if(responseJson.containsKey("uid")){
-          await  _authDb.insert(
-            Auth(isAuthenticated: true, uid: responseJson["uid"], token: responseJson["remember_token"])
-          );
+          await  _authDb.store("isAuthenticated", true);
 
           //save user information to database and update store
           await _userDb.insert(
@@ -63,13 +62,9 @@ class Services  {
 
         Map<String, dynamic> responseJson = json.decode(response.toString());
 
-        if(responseJson.containsKey("uid")){
-          // await  _authDb.insert(
-          //   Auth(isAuthenticated: true, uid: responseJson["uid"], token: responseJson["remember_token"])
-          // );
-        }
-
-        print(responseJson);
+        // if(responseJson.containsKey("uid")){
+        //   await  _authDb.store("isAuthenticated", true,);
+        // }
 
         return responseJson;
       } catch (error) {
@@ -80,31 +75,19 @@ class Services  {
     }
 
 
+    Future getServices() async {
+      /// get services from server
+      try {
+        final response = await dio.get("services");
+        Map<String, dynamic> responseJson = json.decode(response.toString());
 
+        if(responseJson.containsKey("services")) return responseJson["services"];
+      } catch (error) {
+        print(error.toString());
 
-    // Future submitQuiz(Map<String, String> quizInfo) async {
-    //   try {
-
-    //     final response = await dio.post("submitanswer", data: {
-    //         "device": "mobile",
-    //         ...quizInfo
-    //     });
-
-    //     Map<String, dynamic> responseJson = json.decode(response.toString());
-
-    //     if(responseJson.containsKey("uid")){
-    //       // await  _authDb.insert(
-    //       //   Auth(isAuthenticated: true, uid: responseJson["uid"], token: responseJson["remember_token"])
-    //       // );
-    //     }
-
-    //     return responseJson;
-    //   } catch (error) {
-    //     print(error.toString());
-
-    //     return null;
-    //   }
-    // }
+        return null;
+      }
+    }
     
     // Future fetchProfile(Map<String, String> userInfo) async {
     //     try {
@@ -128,30 +111,27 @@ class Services  {
     //     }
     // }
 
-    // Future fetchTestimony(Map<String, String> userInfo) async {
-    //   try {
+    Future sendPickupRequest(Map<String, dynamic> pickupInfo) async {
+      try {
 
-    //     final response = await dio.post("testimony", data: {
-    //       "token": userInfo["token"],
-    //       "uid": userInfo["uid"]
-    //     });
+        final response = await dio.post("sendpickuprequest", data: {
+          "device": "mobile",
+          // ...pickupInfo
+        });
+        print(response);
 
-    //    final responseJson = json.decode(response.toString())["data"];
+       final responseJson = json.decode(response.toString());
 
-    //     List<Map<String, dynamic>> responseList = [];
+        Map<String, dynamic> responseMap = Map<String, dynamic>.from(responseJson);
+        if(responseMap.containsKey("id")){
+          return responseMap;
+        }
+      } catch (error) {
+        print(error.toString());
+      }
 
-    //     responseJson.forEach((dynamic value) {
-    //       responseList.add(Map<String, dynamic>.from(value));
-    //     });
-
-    //     return responseList;
-
-    //   } catch (error) {
-    //     print(error.toString());
-
-    //     return null;
-    //   }
-    // }
+      return null;
+    }
 
     // Future fetchAbout(Map<String, String> userInfo) async {
     //   try {

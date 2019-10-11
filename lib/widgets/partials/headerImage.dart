@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class HeaderImage extends StatelessWidget {
+  final size;
+  HeaderImage({Key key, this.size}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100.0,
-      height: 100.0,
+      width: size ?? 100.0,
+      height: size ?? 100.0,
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
           color: Colors.white70,
@@ -17,7 +19,7 @@ class HeaderImage extends StatelessWidget {
       ),
       child: ClipRRect(
           borderRadius: new BorderRadius.circular(75.0),
-          child: Image.asset("assets/images/logo.png", width: 100.0, ),
+          child: Image.asset("assets/images/logo.png", width: size ?? 100.0, ),
       ),
     );
   }

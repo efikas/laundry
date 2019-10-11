@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laundry/models/Service.dart';
+import 'package:laundry/models/ServiceModel.dart';
 import 'package:laundry/widgets/partials/addressForm.dart';
 import 'package:provider/provider.dart';
 import 'package:laundry/store/serviceState.dart';
@@ -25,33 +25,6 @@ class _AddressPage extends State<AddressPage> {
   void dispose() {
     super.dispose();
   }
-
-
-  increment(String key) =>(){
-    serviceState.increment(key);
-  };
-
-  itemInCart(){
-    int _total = 0;
-    serviceState.getServices.values.toList().forEach((Service service){
-      _total += service.quantity;
-    });
-    
-    return _total.toString();
-  }
-
-  totalNumberitemInCart(){
-    int _totalPrice = 0;
-    serviceState.getServices.values.toList().forEach((Service service){
-      _totalPrice += service.quantity * int.parse(service.price);
-    });
-    
-    return _totalPrice.toString();
-  }
-
-  decrement(String key) =>(){
-    serviceState.decrement(key);
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +62,7 @@ class _AddressPage extends State<AddressPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Icon(FontAwesomeIcons.moneyBill, color: Colors.white70,),
-                          Text("#" + totalNumberitemInCart(), style: TextStyle(
+                          Text("₦" + serviceState.priceOfItemsInCart, style: TextStyle(
                             fontWeight: FontWeight.bold, 
                             color: Colors.white,
                             fontSize: 16
@@ -117,7 +90,7 @@ class _AddressPage extends State<AddressPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Icon(FontAwesomeIcons.shoppingBasket, color: Colors.white70,),
-                          Text(itemInCart(), style: TextStyle(
+                          Text(serviceState.itemInCart, style: TextStyle(
                             fontWeight: FontWeight.bold, 
                             color: Colors.white,
                             fontSize: 20

@@ -1,6 +1,6 @@
 import 'package:sembast/sembast.dart';
 import 'package:laundry/database/DbHealper.dart';
-import 'package:laundry/models/User.dart';
+import 'package:laundry/models/UserModel.dart';
 
 class UserDb {
 

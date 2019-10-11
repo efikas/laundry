@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/models/UserModel.dart';
+import 'package:provider/provider.dart';
 import 'package:laundry/store/authState.dart';
 import 'package:laundry/store/userState.dart';
 import 'package:laundry/widgets/partials/Loading.dart';
 import 'package:laundry/widgets/partials/NetworkError.dart';
 import 'package:laundry/widgets/partials/ProfileFront.dart';
-import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -43,7 +44,7 @@ class _ProfileState extends State<Profile>
   }
 
 
-  Widget getProfile(dynamic userInfo, BuildContext context){
+  Widget getProfile(User userInfo, BuildContext context){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -83,8 +84,8 @@ class _ProfileState extends State<Profile>
                         decoration: BoxDecoration(
                             color: Colors.blue.shade900,
                             image: DecorationImage(
-                                // image: NetworkImage(userInfo["image"]),
-                                image: AssetImage("assets/images/logo.png"),
+                                image: NetworkImage(userInfo.image),
+                                // image: AssetImage("assets/images/logo.png"),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.all(Radius.circular(75.0)),
                             boxShadow: [
@@ -108,15 +109,7 @@ class _ProfileState extends State<Profile>
             ],
           ),
         ),
-        SizedBox(height: 10.0),
-        Text(
-          userInfo["username"],
-          style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Montserrat'),
-        ),
-        SizedBox(height: 15.0),
+        SizedBox(height: 50.0),
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: ProfileFront(),
@@ -131,13 +124,14 @@ class _ProfileState extends State<Profile>
   Widget normalizeProfile(dynamic userState) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: SingleChildScrollView(scrollDirection: Axis.vertical,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.transparent,
             ),
             width: MediaQuery.of(context).size.width,
-            child: getProfile(userState.getProfileInfo, context),
+            child: getProfile(userState.getUserInfoModel, context),
           ),
         )
     );

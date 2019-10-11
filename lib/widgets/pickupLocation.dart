@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:laundry/widgets/partials/searchCard.dart';
 import 'package:location/location.dart';
 
-
+const kGoogleApiKey = "AIzaSyDomZOIL0ZDfSJcWKvLbHrYiBlCpJsdT8o";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class PickupLocation extends StatefulWidget {
