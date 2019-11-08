@@ -85,7 +85,6 @@ class _ProfileState extends State<Profile>
                             color: Colors.blue.shade900,
                             image: DecorationImage(
                                 image: NetworkImage(userInfo.image),
-                                // image: AssetImage("assets/images/logo.png"),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.all(Radius.circular(75.0)),
                             boxShadow: [
@@ -95,15 +94,6 @@ class _ProfileState extends State<Profile>
                       ),
                     ),
                   ),
-                ),
-              ),
-              Positioned(
-                top: 98.0,
-                left: 98.0,
-                child:  FloatingActionButton(
-                  onPressed: (){},
-                  child: Icon(Icons.camera_alt, color: Colors.white70,),
-                  mini: true,
                 ),
               ),
             ],
@@ -146,7 +136,6 @@ class _ProfileState extends State<Profile>
       return Loading();
     }
     else if(!userState.getProfileInfo.containsKey("uid")) {
-      print(userState.getProfileInfo);
       return NetworkError(
         reload: userState.getUserData(authState.getAuthInfo["token"], authState.getAuthInfo["uid"]),
       );

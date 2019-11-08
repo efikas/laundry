@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:laundry/database/AppDb.dart';
 import 'package:laundry/models/ServiceModel.dart';
 import 'package:laundry/services/services.dart';
 import 'package:laundry/store/servicesData.dart';
@@ -124,6 +125,7 @@ class ServiceState extends ChangeNotifier  {
         _ourServices = {
           ..._ourServices,
           categoryKey: {
+            ..._ourServices[categoryKey],
             key: Service.fromMap({
               ..._ourServices[categoryKey][key].toMap(),
               "quantity": 0,
@@ -182,6 +184,8 @@ class ServiceState extends ChangeNotifier  {
 
     if(shouldUpdate == true){
       ///update data storage
+      AppDb appDb = new AppDb();
+      appDb.store("services", _ourServices);
       
       notifyListeners();
     }

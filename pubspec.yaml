@@ -39,11 +39,17 @@ dependencies:
   flutter_paystack: ^1.0.1
   flutter_credit_card: ^0.1.3
   autocomplete_textfield: ^1.7.3
+  image_picker: ^0.6.1+4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.2+1
 
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/images/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,6 +68,7 @@ flutter:
    - assets/images/laundry2.jpg
    - assets/images/laundry3.jpg
    - assets/images/logo.png
+   - assets/images/logo.jpg
    - assets/images/wash_fold.jpg
    - assets/images/wash_iron.jpg
    - assets/images/drying_clothes.jpg
@@ -70,12 +77,30 @@ flutter:
    - assets/images/pant.jpeg
    - assets/images/shirt.jpeg
    - assets/images/skirt.jpeg
-   - assets/images/towel.jpeg
    - assets/images/trouser.jpeg
    - assets/images/delivery.jpg
    - assets/images/pickup2.jpeg
    - assets/images/pickup.png
    - assets/images/dry_clean.jpeg
+
+   - assets/images/bedsheet.jpeg
+   - assets/images/bedsheet_xl.jpeg
+   - assets/images/bedsheet_large.jpeg
+   - assets/images/buba_sokoto.jpeg
+   - assets/images/duvet_small.jpeg
+   - assets/images/duvet_large.jpeg
+   - assets/images/duvet_xl.jpeg
+   - assets/images/duvet_cover.jpeg
+   - assets/images/kaftan.jpg
+   - assets/images/pillowcase.jpeg
+   - assets/images/shirt_folding.jpeg
+   - assets/images/shirt_hanging.jpeg
+   - assets/images/suit2piece.jpeg
+   - assets/images/suit3piece.jpeg
+   - assets/images/towel_small.jpeg
+   - assets/images/towel_medium.jpeg
+   - assets/images/towel_large.jpeg
+   - assets/images/towel_xxl.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

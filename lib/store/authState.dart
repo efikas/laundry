@@ -80,4 +80,30 @@ class AuthState extends ChangeNotifier  {
     return {};
   }
 
+  Future<dynamic> forgotPassword(String email) async {
+    Map<String, dynamic> response;
+
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      response = await service.forgotPassword(email);
+
+      if(response != null && response.containsKey("uid")) {
+
+        _isLoading = false;
+        notifyListeners();
+        return response;
+      }
+    }
+    catch(error){
+      print("error");
+      print(error);
+    }
+
+    _isLoading = false;
+    notifyListeners();
+    return response;
+  }
+
 }

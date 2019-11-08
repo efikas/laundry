@@ -1,10 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
 import 'package:laundry/models/UserModel.dart';
 import 'package:laundry/store/userState.dart';
-import 'package:laundry/widgets/registrationSuccess.dart';
 import 'package:provider/provider.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -14,8 +16,6 @@ class EditProfile extends StatefulWidget {
   _EditProfile createState() => _EditProfile();
 }
 
-
-
 class _EditProfile extends State<EditProfile> {
   TextStyle myStyle = TextStyle(fontFamily: 'Montserrat', fontSize: 15.0, color: Colors.white);
 
@@ -24,26 +24,29 @@ class _EditProfile extends State<EditProfile> {
   bool _isLoading = false;
   bool _autoValidate = false;
   String _email;
-  String _username;
-  String _password;
-  String _c_password;
+  String _fullname;
+  String _address;
   String _phone;
-  String _location;
-  String _gender;
   User _user;
+  File _image;
 
-  String genderNormalizer(String genda){
-    if(genda == "F") return "Female";
-    if(genda == "M") return "Male";
 
-    return _gender;
+  dynamic imageNormalizer(){
+    if(_image == null) 
+      return NetworkImage(_user.image);
+
+    return FileImage(_image );
   }
 
-  dynamic imageNormalizer(String image){
-    if(image == "" || image == null) 
-      return AssetImage("assets/images/fastest.png");
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    return NetworkImage(image);
+    setState(() {
+      _image = image;
+    });
+
+    //upload image
+    _upload();
   }
 
   @override
@@ -83,7 +86,7 @@ class _EditProfile extends State<EditProfile> {
                         decoration: BoxDecoration(
                             color: Colors.blue.shade900,
                             image: DecorationImage(
-                                image: imageNormalizer(_user.image),
+                                image: imageNormalizer(),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.all(Radius.circular(75.0)),
                             boxShadow: [
@@ -101,15 +104,18 @@ class _EditProfile extends State<EditProfile> {
                 child:  FloatingActionButton(
                   mini: true,
                   child: Icon(Icons.camera_alt, color: Colors.white,),
+                  onPressed: (){
+                      getImage();
+                  },
                 ),
               ),
             ],
           );
                 
-    final usernameField = TextFormField(
+    final emailField = TextFormField(
         style: myStyle,
         cursorColor: Colors.white,
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.emailAddress,
         initialValue: _user.email,
         enabled: false,
         decoration: InputDecoration(
@@ -141,8 +147,89 @@ class _EditProfile extends State<EditProfile> {
               borderSide: BorderSide(width: 1,color: Colors.redAccent)
             ),
         ),
-        validator: _validateUsername,
-        onChanged: (String val) => _username = val,
+        validator: _validateEmail,
+        onChanged: (String val) => _email = val,
+    );
+
+    final fullnameField = TextFormField(
+        style: myStyle,
+        cursorColor: Colors.white,
+        keyboardType: TextInputType.text,
+        initialValue: _user.fullname,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            labelText: 'Fullname',
+            labelStyle: TextStyle(color: Colors.white),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: new BorderSide(color: Colors.white),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.white),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.grey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.white30),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.red)
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.redAccent)
+            ),
+        ),
+        validator: _validateFullname,
+        onChanged: (String val) => _fullname = val,
+    );
+
+    final addressField = TextFormField(
+        style: myStyle,
+        minLines: 3,
+        maxLength: null,
+        maxLines: null, 
+        cursorColor: Colors.white,
+        keyboardType: TextInputType.multiline,
+        initialValue: _user.address,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            labelText: 'Home Address',
+            alignLabelWithHint: true,
+            hasFloatingPlaceholder: true,
+            labelStyle: TextStyle(color: Colors.white),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: new BorderSide(color: Colors.white),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.white),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.grey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.white30),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.red)
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1,color: Colors.redAccent)
+            ),
+        ),
+        validator: _validateAddress,
+        onChanged: (String val) => _address = val,
     );
 
     final phoneField = TextFormField(
@@ -182,72 +269,6 @@ class _EditProfile extends State<EditProfile> {
         validator: _validatePhone,
         onChanged: (String val) => _phone = val,
     );
-
-    final gender = new FormField<String>(
-          builder: (FormFieldState<String> state) {
-            return InputDecorator(
-              baseStyle: myStyle,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                  labelText: "Gender",
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                    borderSide: new BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(width: 1,color: Colors.white),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(width: 1,color: Colors.grey),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(width: 1,color: Colors.white30),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(width: 1,color: Colors.red)
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    borderSide: BorderSide(width: 1,color: Colors.redAccent)
-                  ),
-              ),
-              isEmpty: _gender == '',
-              child: new DropdownButtonHideUnderline(
-                child: new DropdownButton<String>(
-                  value: null,
-                  isDense: true,
-                  hint: (_gender != null) ? Text(_gender, 
-                            style: TextStyle(color: Colors.white),
-                          ) : null,
-                  iconEnabledColor: Colors.white,
-                  iconDisabledColor: Colors.white,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      _gender = newValue;
-                      state.didChange(newValue);
-                    });
-                  },
-                  items: <String>['', 'Female', 'Male']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          },
-          validator: (String value) {
-            return _validateGender(_gender);
-          },
-          onSaved: (String val) => _gender,
-        );
 
     final animateRegisterButton = Animator(
         duration: Duration(milliseconds: 300),
@@ -332,11 +353,13 @@ class _EditProfile extends State<EditProfile> {
                                             child: Column(
                                               children: <Widget>[
                                                 SizedBox(height: 20.0),
-                                                usernameField,
+                                                emailField,
                                                 SizedBox(height: 25.0,),
-                                                gender,
+                                                fullnameField,
                                                 SizedBox(height: 25.0,),
                                                 phoneField,
+                                                SizedBox(height: 25.0,),
+                                                addressField,
                                                 SizedBox(height: 30.0,),
                                                 animateRegisterButton,
                                                 SizedBox(height: 55.0,),
@@ -402,33 +425,17 @@ class _EditProfile extends State<EditProfile> {
   
   String _validateEmail(String value) {
     if (value.trim().length < 1) return 'Email can not be empty';
+    else if (RegExp(r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?").hasMatch(value) == false) return 'Email not valid';
 
     return null;
   }
 
-  String _validateUsername(String value) {
-    if (value.trim().length < 1) return 'Username can not be empty';
+  String _validateFullname(String value) {
+    if (value.trim().length < 1) return 'Fullname can not be empty';
 
     return null;
   }
 
-  String _validatePassword(String value) {
-    if (value.trim().length < 1) return 'Password can not be empty';
-
-    return null;
-  }
-
-  String _validateCPassword(String value) {
-    if (value.trim().length < 1) return 'Password can not be empty';
-    else if (value != _password) return 'Password does not match';
-    else return null;
-  }
-
-  String _validateGender(String value) {
-    if (value.trim().length < 1) return 'Gender can not be empty';
-
-    return null;
-  }
 
   String _validatePhone(String value) {
     if (value.trim().length < 1) return 'Phone can not be empty';
@@ -436,23 +443,43 @@ class _EditProfile extends State<EditProfile> {
     return null;
   }
 
-  String _validateLocation(String value) {
-    if (value.trim().length < 1) return 'Locaion can not be empty';
+  String _validateAddress(String value) {
+    if (value.trim().length < 1) return 'Home Address can not be empty';
 
     return null;
   }
 
+  void _upload() async{
+   if (_image == null) return;
+   final userState = Provider.of<UserState>(context);
 
-  String normalizeGender(String _gen){
-    if(_gen == "Female") return "F";
-    if(_gen == "Male") return "M";
-    else return "";
-  }
+   String fileName = _image.path.split("/").last;
+
+    try{
+      Map<String, dynamic> response = null;
+      response = await userState.uploadImage(userState.getUserInfoModel.uid, _image, fileName);
+      _resp(response, "Image Updated Successfully!");
+    }
+    catch (error) {
+      print(error);
+      Flushbar(
+        message: "Network Error, Check your internet connection.!",
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.red[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.red[300],
+        flushbarPosition: FlushbarPosition.TOP,
+      )..show(context);
+    }
+
+ }
+
 
   void _validateInputsAndSubmit() async{
-    final authState = Provider.of<UserState>(context);
-
-    if(!authState.isLoading) {
+    if(!userState.isLoading) {
 
       if (_formKey.currentState.validate()) {
         //If all data are correct then save data to out variables
@@ -460,53 +487,34 @@ class _EditProfile extends State<EditProfile> {
         setState(() {_isLoading = true;});
 
         Map<String, String> _credentials = {};
-        _credentials["email"] = _email;
-        _credentials["username"] = _username;
-        _credentials["password"] = _password;
+        _credentials["uid"] = userState.getUserInfoModel.uid;
+        _credentials["name"] = _fullname;
         _credentials["phone"] = _phone;
-        _credentials["location"] = _location;
-        _credentials["gender"] = normalizeGender(_gender);
+        _credentials["address"] = _address;
+        print(_fullname);
 
-
-        try{
-          Map<String, dynamic> response = null;
-          // Map<String, dynamic> response = await authState.register(_credentials);
-
-          //update user state with user informations
-            if(response != null && response.containsKey("uid")) {
-               Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (BuildContext context) => RegistrationSuccess()), (Route<dynamic> route) => false);
-            }
-            else {
-              Flushbar(
-                message: "There was a problem connecting to the server, check your internet connection!",
-                icon: Icon(
-                  Icons.info_outline,
-                  size: 28.0,
-                  color: Colors.red[300],
-                ),
-                duration: Duration(seconds: 3),
-                leftBarIndicatorColor: Colors.red[300],
-                flushbarPosition: FlushbarPosition.TOP,
-              )..show(context);
-            }
-            setState(() {_isLoading = false;});
-        }
-        catch (error) {
-          print(error);
-          Flushbar(
-            message: "Network Error, Check your internet connection.!",
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.red[300],
-            ),
-            duration: Duration(seconds: 3),
-            leftBarIndicatorColor: Colors.red[300],
-            flushbarPosition: FlushbarPosition.TOP,
-          )..show(context);
-          setState(() {_isLoading = false;});
-        }
+        // try{
+        //   Map<String, dynamic> response = null;
+        //   response = userState.updateProfile(_credentials);
+        //   _resp(response, "Profile Updated Successfully!");
+            
+        //     setState(() {_isLoading = false;});
+        // }
+        // catch (error) {
+        //   print(error);
+        //   Flushbar(
+        //     message: "Network Error, Check your internet connection.!",
+        //     icon: Icon(
+        //       Icons.info_outline,
+        //       size: 28.0,
+        //       color: Colors.red[300],
+        //     ),
+        //     duration: Duration(seconds: 3),
+        //     leftBarIndicatorColor: Colors.red[300],
+        //     flushbarPosition: FlushbarPosition.TOP,
+        //   )..show(context);
+        //   setState(() {_isLoading = false;});
+        // }
 
 
       } else {
@@ -517,5 +525,35 @@ class _EditProfile extends State<EditProfile> {
       }
     }
 
+  }
+
+  _resp(dynamic response, String success) async {
+    //update user state with user informations
+      if(response != null && response.containsKey("uid")) {
+        Flushbar(
+          message: success,
+          icon: Icon(
+            Icons.info_outline,
+            size: 28.0,
+            color: Colors.green[300],
+          ),
+          duration: Duration(seconds: 3),
+          leftBarIndicatorColor: Colors.green[300],
+          flushbarPosition: FlushbarPosition.TOP,
+        )..show(context);
+      }
+      else {
+        Flushbar(
+          message: "There was a problem connecting to the server, check your internet connection!",
+          icon: Icon(
+            Icons.info_outline,
+            size: 28.0,
+            color: Colors.red[300],
+          ),
+          duration: Duration(seconds: 3),
+          leftBarIndicatorColor: Colors.red[300],
+          flushbarPosition: FlushbarPosition.TOP,
+        )..show(context);
+      }        
   }
 }

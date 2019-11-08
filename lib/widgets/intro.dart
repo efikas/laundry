@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:laundry/database/AppDb.dart';
 import 'package:laundry/widgets/login.dart';
 
 class Intro extends StatefulWidget {
@@ -43,7 +44,10 @@ class _IntroState extends State<Intro> {
     );
   }
 
-  void onDonePress() {
+  void onDonePress() async {
+    AppDb appDb = new AppDb();
+    await appDb.fetch("showInitialPage");
+    
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
   }

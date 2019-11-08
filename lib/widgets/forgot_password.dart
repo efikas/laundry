@@ -224,7 +224,6 @@ double _buttonAnimate(double tween) {
   }
 
   void _validateInputsAndSubmit() async{
-    //login user
     final authState = Provider.of<AuthState>(context);
 
     if(!authState.isLoading) {
@@ -235,7 +234,37 @@ double _buttonAnimate(double tween) {
         setState(() {_isLoading = true;});
 
         try{
-         
+          Map<dynamic, dynamic> response = await authState.forgotPassword(_email);
+
+          print(response);
+          //update user state with user informations
+          if(response != null && response.containsKey("uid")) {
+             Flushbar(
+              message: "Check your email for temporary password for authentication",
+              icon: Icon(
+                Icons.check_circle_outline,
+                size: 28.0,
+                color: Colors.green[300],
+              ),
+              duration: Duration(seconds: 4),
+              leftBarIndicatorColor: Colors.green[300],
+              flushbarPosition: FlushbarPosition.TOP,
+            )..show(context);
+          }
+          else {
+            Flushbar(
+              message: "There was a problem connecting to the server, check your internet connection!",
+              icon: Icon(
+                Icons.info_outline,
+                size: 28.0,
+                color: Colors.red[300],
+              ),
+              duration: Duration(seconds: 3),
+              leftBarIndicatorColor: Colors.red[300],
+              flushbarPosition: FlushbarPosition.TOP,
+            )..show(context);
+          }
+          setState(() {_isLoading = false;});
         }
         catch (error) {
           print(error);

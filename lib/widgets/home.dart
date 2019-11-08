@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/widgets/editProfile.dart';
 import 'package:laundry/widgets/pickups.dart';
 import 'package:laundry/widgets/profile.dart';
 import 'package:laundry/widgets/services.dart';
@@ -14,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Services(switchPage: (){},),
+    Services(),
     Profile(),
     Pickups(),
   ];
@@ -25,7 +26,22 @@ class _HomeState extends State<Home> {
  Widget build(BuildContext context) {
    return Scaffold(
      appBar: AppBar(
-       title: Text(_title[_currentIndex]),
+       title: Center(
+         child: Text(_title[_currentIndex]),
+       ),
+       actions: <Widget>[
+         (_currentIndex == 1) 
+            ? IconButton(
+                icon: Icon(Icons.edit, color: Colors.white,),
+                onPressed: (){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext context) => EditProfile())
+                  );
+                },
+              ) 
+            : SizedBox(width: 0,),
+         SizedBox(width: 5,),
+       ],
      ),
      body: _children[_currentIndex],
      bottomNavigationBar: BottomNavigationBar(
@@ -54,4 +70,30 @@ class _HomeState extends State<Home> {
      _currentIndex = index;
    });
  }
+
+//  Future<Map<String, dynamic>>fetchConfirmationDatas() async{
+//     final userState = Provider.of<UserState>(context);
+//     final authState = Provider.of<AuthState>(context);
+//     final serviceState = Provider.of<ServiceState>(context);
+
+//     AppDb appDb = new AppDb();
+
+//     // load all initial state data
+//     dynamic user = await appDb.fetch("user");
+//     dynamic authentication = await appDb.fetch("auth");
+//     dynamic services = await appDb.fetch("services");
+
+//     if (user != null) userState.getProfileInfo = user;
+//     if (authentication != null) authState.getAuthInfo = authentication;
+//     if (services != null) serviceState.getServices = services;
+
+//     bool isOnboarded = await appDb.fetch("showInitialPage");
+
+//     return {
+//       "isOnboarded" : isOnboarded,
+//       "authentication" : authentication,
+//       "services" : services,
+//       "user" : user,
+//     };
+//   }
 }

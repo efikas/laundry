@@ -15,7 +15,8 @@ class PickUpRequestSuccess extends StatelessWidget {
         //reset the services 
         serviceState.resetServices();
         
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', 
+              (Route r) => r == null);  
       },
       child: Container(
         height: 50,
@@ -64,7 +65,7 @@ class PickUpRequestSuccess extends StatelessWidget {
                         SizedBox(height: 100.0),
                         Icon(Icons.check_circle_outline, color: Colors.green, size: 120.0,),
                         SizedBox(height: 30.0),
-                        Text("Thank You For",
+                        Text("PickUp Request",
                           textAlign: TextAlign.center,
                           style: myStyle.copyWith(
                             color: Colors.greenAccent,
@@ -72,7 +73,7 @@ class PickUpRequestSuccess extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.0),
-                        Text("Registration",
+                        Text("Successfull",
                           textAlign: TextAlign.center,
                           style: myStyle.copyWith(
                             color: Colors.greenAccent,

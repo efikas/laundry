@@ -8,6 +8,16 @@ class AuthDb {
   // singleton instance of an opened database.
   Future<Database> get _db async => await AppDatabase.instance.database;
 
+  // static const String FRUIT_STORE_NAME = 'fruits';
+  // // A Store with int keys and Map<String, dynamic> values.
+  // // This Store acts like a persistent map, values of which are Fruit objects converted to Map
+  // final _fruitStore = intMapStoreFactory.store(FRUIT_STORE_NAME);
+
+
+  // Future insert(Fruit fruit) async {
+  //   await _fruitStore.add(await _db, fruit.toMap());
+  // }
+
   Future store(String key, dynamic data) async {
     await _authStore.record(key).put(await _db, data);
   }

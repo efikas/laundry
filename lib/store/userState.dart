@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:laundry/models/UserModel.dart';
@@ -8,11 +9,11 @@ class UserState extends ChangeNotifier  {
 
   Services service = new Services();
   Map<String, dynamic> _userInfo = {
-    "uid": "e455rttyye45wd246",
-    "fullname": "Emmanuel Samson",
-    "username": "emma",
-    "phone": "080863820",
-    "address": "D23, Ajao Avenue, Gwarimpa Estate Abuja",
+    "uid": "36af49efb9c40a88d5f56b9",
+    "fullname": "Fullname",
+    "email": "emial@email.com",
+    "phone": "0808000000",
+    "address": "Abuja, Nigeria",
     "image": ""
   };
   bool _isLoading = false;
@@ -47,5 +48,49 @@ class UserState extends ChangeNotifier  {
 
     return _userInfo;
   }
+
+  Future<dynamic> updateProfile(Map<String,String> _userCredentials) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      Map<String, dynamic> response = await service.updateProfile(_userCredentials);
+
+      if(response != null && response.containsKey("uid")) {
+        _isLoading = false;
+
+        this.getProfileInfo = User.fromMap({
+          ...response,
+          "image": response["full_image_url"]
+        }).toMap();
+        notifyListeners();
+        
+        return response;
+      }
+    }
+    catch(error){
+      print("error");
+      print(error);
+    }
+
+    _isLoading = false;
+    notifyListeners();
+    return {};
+  }
+
+  Future<dynamic> uploadImage(String uid, File image, String name) async {
+
+    Map<String, dynamic> response = await service.uploadImage(uid, image, name);
+
+    if(response != null && response.containsKey("uid")){
+      this.getProfileInfo = User.fromMap({
+        ...response,
+        "image": response["full_image_url"]
+      }).toMap();
+
+      notifyListeners();
+    }
+    return response;
+  } 
 
 }

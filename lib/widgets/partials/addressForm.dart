@@ -213,56 +213,56 @@ class _AddressFormState extends State<AddressForm> {
                 ),
               ),
               SizedBox(height: 70.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  AnimatedContainer(
-                    duration:Duration(milliseconds: 500),
-                    width: containerWidth,
-                    height: 80.0,
-                    padding: EdgeInsets.only(top: 12.0, left: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.horizontal(right: Radius.circular(50)),
-                    ),
-                    child: ListTile(
-                      leading: Icon(FontAwesomeIcons.moneyBill, color: Colors.white60,),
-                      title: AnimatedOpacity(
-                        opacity: _opacity,
-                        duration: Duration(seconds: 3),
-                        child: Text("Pay On Delivery", 
-                            style: TextStyle(color: Colors.white, fontSize: 14.0), 
-                            overflow: TextOverflow.clip,
-                            ),
-                      ),
-                      onTap: (){
-                        serviceState.sendPickupRequest();
-                      },
-                    )
-                  ),
-                  AnimatedContainer(
-                    duration:Duration(milliseconds: 500),
-                    width: containerWidth,
-                    height: 80.0,
-                    padding: EdgeInsets.only(top: 12.0, left: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.horizontal(left: Radius.circular(50)),
-                    ),
-                    child: ListTile(
-                      leading: Icon(Icons.credit_card, color: Colors.white60,),
-                      title: AnimatedOpacity(
-                        opacity: _opacity,
-                        duration: Duration(seconds: 3),
-                        child: Text("Make Payment", style: TextStyle(color: Colors.white), overflow: TextOverflow.clip, ),
-                      ),
-                      onTap: (){
-                        Navigator.of(context).pushNamed('/makePaymentPage');
-                      },
-                    )
-                  ),
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     AnimatedContainer(
+              //       duration:Duration(milliseconds: 500),
+              //       width: containerWidth,
+              //       height: 80.0,
+              //       padding: EdgeInsets.only(top: 12.0, left: 10.0),
+              //       decoration: BoxDecoration(
+              //         color: Colors.blue,
+              //         borderRadius: BorderRadius.horizontal(right: Radius.circular(50)),
+              //       ),
+              //       child: ListTile(
+              //         leading: Icon(FontAwesomeIcons.moneyBill, color: Colors.white60,),
+              //         title: AnimatedOpacity(
+              //           opacity: _opacity,
+              //           duration: Duration(seconds: 3),
+              //           child: Text("Pay On Delivery", 
+              //               style: TextStyle(color: Colors.white, fontSize: 14.0), 
+              //               overflow: TextOverflow.clip,
+              //               ),
+              //         ),
+              //         onTap: (){
+              //           serviceState.sendPickupRequest();
+              //         },
+              //       )
+              //     ),
+              //     AnimatedContainer(
+              //       duration:Duration(milliseconds: 500),
+              //       width: containerWidth,
+              //       height: 80.0,
+              //       padding: EdgeInsets.only(top: 12.0, left: 10.0),
+              //       decoration: BoxDecoration(
+              //         color: Colors.blue,
+              //         borderRadius: BorderRadius.horizontal(left: Radius.circular(50)),
+              //       ),
+              //       child: ListTile(
+              //         leading: Icon(Icons.credit_card, color: Colors.white60,),
+              //         title: AnimatedOpacity(
+              //           opacity: _opacity,
+              //           duration: Duration(seconds: 3),
+              //           child: Text("Make Payment", style: TextStyle(color: Colors.white), overflow: TextOverflow.clip, ),
+              //         ),
+              //         onTap: (){
+              //           Navigator.of(context).pushNamed('/makePaymentPage');
+              //         },
+              //       )
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

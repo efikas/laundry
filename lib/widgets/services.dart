@@ -6,15 +6,7 @@ import 'package:laundry/widgets/partials/servicesCard.dart';
 
 
 class Services extends StatefulWidget {
-  Function switchPage;
-
-  Services({
-      Key key, 
-      @required this.switchPage
-    }): 
-    assert(switchPage != null),
-    super(key: key);
-
+  
   @override
   _CustomLayoutExampleState createState() => _CustomLayoutExampleState();
 }
@@ -37,11 +29,11 @@ class _CustomLayoutExampleState extends State<Services> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 350.0,
+            height: 300.0,
             child: Stack(
               children: <Widget>[
                 new Container(
-                  height: 250,
+                  height: 200,
                   color: Colors.blue,
                 ),
                 Positioned(
@@ -55,7 +47,7 @@ class _CustomLayoutExampleState extends State<Services> {
                 ),
 
                 Positioned(
-                  top: 175.0,
+                  top: 125.0,
                   // bottom: 50,
                   child: new Container(
                     height: 150,
@@ -74,7 +66,7 @@ class _CustomLayoutExampleState extends State<Services> {
           ),
 
           Container(
-            height: 400.0,
+            height: 280,
             child: Column(
               children: <Widget>[
                 SizedBox(height: 10,),
@@ -104,7 +96,7 @@ class _CustomLayoutExampleState extends State<Services> {
                       child: Row(
                         children: <Widget>[
                           SizedBox(width: 20.0,),
-                          Icon(FontAwesomeIcons.bus, color: Colors.white54,),
+                          Icon(FontAwesomeIcons.truckPickup, color: Colors.white54,),
                           SizedBox(width: 10.0,),
                           Text("Pickup Request",
                               textAlign: TextAlign.center,

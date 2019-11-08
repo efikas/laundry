@@ -26,7 +26,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "SHIRT (HANGING)",
-          "image": "assets/images/towel.jpeg"
+          "image": "assets/images/shirt_hanging.jpeg"
         }
       ),
       "shirt_folding": Service.fromMap(
@@ -35,7 +35,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "SHIRT (FOLDING)",
-          "image": "assets/images/skirt.jpeg"
+          "image": "assets/images/shirt_folding.jpeg"
         }
       ),
       "suit_2piece": Service.fromMap(
@@ -44,7 +44,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "SUIT 2PIECE",
-          "image": "assets/images/jacket.jpeg"
+          "image": "assets/images/suit2piece.jpeg"
         }
       ),
       "suit_3piece": Service.fromMap(
@@ -53,7 +53,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "SUIT 3PIECE",
-          "image": "assets/images/pant.jpeg"
+          "image": "assets/images/suit3piece.jpeg"
         }
       ),
       "jeans_trouser": Service.fromMap(
@@ -72,7 +72,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "BUBA AND SOKOTO",
-          "image": "assets/images/pant.jpeg"
+          "image": "assets/images/buba_sokoto.jpeg"
         }
       ),
       "kaftan": Service.fromMap(
@@ -81,7 +81,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "KAFTAN",
-          "image": "assets/images/jeans.jpeg"
+          "image": "assets/images/kaftan.jpg"
         }
       ),
     },
@@ -110,7 +110,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "SHORT NATIVE GOWN",
-          "image": "assets/images/towel.jpeg"
+          "image": "assets/images/shirt.jpeg"
         }
       ),
       "shirt_native_gown_stoned": Service.fromMap(
@@ -185,7 +185,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "TOWEL (XXL)",
-          "image": "assets/images/shirt.jpeg"
+          "image": "assets/images/towel_xxl.jpeg"
         }
       ),
       "towel_L": Service.fromMap(
@@ -194,7 +194,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "TOWEL (LARGE)",
-          "image": "assets/images/trouser.jpeg"
+          "image": "assets/images/towel_large.jpeg"
         }
       ),
       "towel_medium": Service.fromMap(
@@ -203,7 +203,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "TOWEL (MEDIUM)",
-          "image": "assets/images/towel.jpeg"
+          "image": "assets/images/towel_medium.jpeg"
         }
       ),
       "towel_small": Service.fromMap(
@@ -211,8 +211,8 @@ Map<String, Map<String, Service>> laundryServices = {
           "slug": "towel_small",
           "quantity": 0,
           "price": 0,
-          "name": "TOERL (SMALL)",
-          "image": "assets/images/skirt.jpeg"
+          "name": "TOWEL (SMALL)",
+          "image": "assets/images/towel_small.jpeg"
         }
       ),
       "bed_sheet_xl": Service.fromMap(
@@ -221,7 +221,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "BED SHEET (XL)",
-          "image": "assets/images/jacket.jpeg"
+          "image": "assets/images/bedsheet_xl.jpeg"
         }
       ),
       "bed_sheet_large": Service.fromMap(
@@ -230,7 +230,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "BED SHEET (LARGE)",
-          "image": "assets/images/pant.jpeg"
+          "image": "assets/images/bedsheet_large.jpeg"
         }
       ),
       "pillow_case": Service.fromMap(
@@ -239,7 +239,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "PILLOW CASE",
-          "image": "assets/images/jeans.jpeg"
+          "image": "assets/images/pillowcase.jpeg"
         }
       ),
       "duvet_xl": Service.fromMap(
@@ -248,7 +248,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "DUVET (XL)",
-          "image": "assets/images/pant.jpeg"
+          "image": "assets/images/duvet_xl.jpeg"
         }
       ),
       "duvet_large": Service.fromMap(
@@ -257,7 +257,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "DUVET (LARGE)",
-          "image": "assets/images/jeans.jpeg"
+          "image": "assets/images/duvet_large.jpeg"
         }
       ),
       "duvet_small": Service.fromMap(
@@ -266,7 +266,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "DUVET (SMALL)",
-          "image": "assets/images/pant.jpeg"
+          "image": "assets/images/duvet_small.jpeg"
         }
       ),
       "duvet_cover": Service.fromMap(
@@ -275,7 +275,7 @@ Map<String, Map<String, Service>> laundryServices = {
           "quantity": 0,
           "price": 0,
           "name": "DUVET COVER",
-          "image": "assets/images/jeans.jpeg"
+          "image": "assets/images/duvet_cover.jpeg"
         }
       ),
     },
