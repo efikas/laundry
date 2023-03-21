@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   provider: ^3.0.0+1
   font_awesome_flutter: ^8.5.0
-  dio: ^2.1.0
+  dio: ">=2.1.0 <6.0.0"
   flutter_spinkit: ^3.1.0
   path_provider: ^1.1.0
   sembast: ^2.0.1
